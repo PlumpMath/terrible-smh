@@ -73,7 +73,6 @@ public class PlayerControllerScript : MonoBehaviour {
 	float getMaxMovementOnX(bool goingRight, float maxDistance){
 		// Default to however long
 		float maxMovement = Mathf.Abs(maxDistance);
-		Debug.Log(maxMovement);
 
 		// Get the origins for the rays
 		Vector2 topOrigin = rb2d.position + (goingRight ? topRight : topLeft);
