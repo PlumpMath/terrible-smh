@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114531426456411064}
   - component: {fileID: 50264609373241494}
   - component: {fileID: 61985407451088178}
+  - component: {fileID: 114932056315780226}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1568960249647468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -7.35, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1.2355635, y: 1.2355634, z: 1.2355634}
   m_Children:
   - {fileID: 4889128728794194}
@@ -174,6 +175,19 @@ MonoBehaviour:
   debug: 0
   maxDistanceFromWall: 0.2
   walljumpModifier: 1
+--- !u!114 &114932056315780226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568960249647468}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87678dc38d2e48f2b6c6959d0339348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorPrefab: {fileID: 1768692373659252, guid: 214e9c662d73245e2862f9eae3733f9c,
+    type: 2}
 --- !u!212 &212484073164770288
 SpriteRenderer:
   m_ObjectHideFlags: 1

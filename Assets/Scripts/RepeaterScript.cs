@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class RepeaterScript : MonoBehaviour {
 	
+	public GameObject actorPrefab;
+
 	List<Vector3> movements = new List<Vector3>();
 
 	bool isRecording;
 
 	PlayerControllerScript pcs;
+
+	GameObject actor;
 
 	/// <summary>
 	/// Awake is called when the script instance is being loaded.
@@ -34,8 +38,13 @@ public class RepeaterScript : MonoBehaviour {
 		}
 		// When Q is pressed, make a new object that re-enacts those movements
 		if (Input.GetKey(KeyCode.Q) && !isRecording){
+			if (actor)
+				Destroy (actor);
+
 			Debug.Log("Started playback");
-			// TODO
+			actor = Instantiate(actorPrefab, movements[0], Quaternion.identity);
+
+			actor.GetComponent<RepeaterActor>().movements = movements;
 		}
 	}
 }
