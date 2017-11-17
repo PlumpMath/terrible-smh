@@ -171,7 +171,7 @@ MonoBehaviour:
     m_Bits: 256
   jumpHeight: 7.5
   speed: 7.5
-  debug: 1
+  debug: 0
   maxDistanceFromWall: 0.2
   walljumpModifier: 1
 --- !u!212 &212484073164770288

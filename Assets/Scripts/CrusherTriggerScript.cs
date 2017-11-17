@@ -12,7 +12,7 @@ public class CrusherTriggerScript : MonoBehaviour {
 			foreach (Transform t in wallsToCrush){
 				t.GetComponent<CrusherScript>().startCrushing();
 			}
-			Destroy(this);
+			Destroy(gameObject);
 		}
 	}
 }
