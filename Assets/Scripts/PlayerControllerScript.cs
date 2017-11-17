@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,23 @@ public class PlayerControllerScript : MonoBehaviour {
 	bool isJumping;
 	float jumpingXMod;
 	float normalizedHorizontalSpeed;
-	Rigidbody2D rb2d;
+
+	bool isRecording;
+	List<Vector3> movements;
+
+    internal void startRecording(ref List<Vector3> movements)
+    {
+        isRecording = true;
+		movements.Clear();
+		this.movements = movements;
+    }
+
+    internal void stopRecording()
+    {
+        isRecording = false;
+    }
+
+    Rigidbody2D rb2d;
 	Vector2 topLeft;
 	Vector2 topRight;
 	Vector2 botLeft;
@@ -68,6 +85,10 @@ public class PlayerControllerScript : MonoBehaviour {
 		
 		// Move
 		transform.position += new Vector3(actualDistance, 0f);
+
+		// If we're recording, record our position
+		if (isRecording)
+			movements.Add(transform.position);
 	}
 
 	float getMaxMovementOnX(bool goingRight, float maxDistance){

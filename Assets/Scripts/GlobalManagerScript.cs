@@ -9,7 +9,7 @@ public class GlobalManagerScript : MonoBehaviour {
 
 	void Awake(){
 		if (GameObject.FindGameObjectsWithTag("Manager").Length > 1){
-			Destroy(this);
+			Destroy(gameObject);
 			return;
 		}
 
@@ -29,5 +29,9 @@ public class GlobalManagerScript : MonoBehaviour {
 		
 		// Reset the scene
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void ShowRepeaterTutorial(){
+		return; //TODO
 	}
 }
