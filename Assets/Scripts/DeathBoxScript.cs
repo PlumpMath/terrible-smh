@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DeathBoxScript : MonoBehaviour {
 
-	public Transform manager;
+	Transform manager;
+
+	void Start()
+	{
+		manager = GameObject.FindGameObjectWithTag("Manager").transform;
+	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Debug.Log("hello");
 		// Check if it's the player
 		if (other.gameObject.tag == "Player"){
 			// If so, fire the death event on the global manager

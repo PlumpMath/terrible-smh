@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1568960249647468}
   m_IsPrefabParent: 1
+--- !u!1 &1305877457271126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4889128728794194}
+  - component: {fileID: 61501038246491560}
+  - component: {fileID: 114221418706259454}
+  m_Layer: 0
+  m_Name: CrushDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1568960249647468
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,10 +54,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1568960249647468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.72, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7.35, z: 0}
   m_LocalScale: {x: 1.2355635, y: 1.2355634, z: 1.2355634}
-  m_Children: []
+  m_Children:
+  - {fileID: 4889128728794194}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4889128728794194
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305877457271126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4377519793772244}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50264609373241494
@@ -61,8 +92,33 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!61 &61501038246491560
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305877457271126}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.1}
+  m_EdgeRadius: 0
 --- !u!61 &61985407451088178
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -88,6 +144,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &114221418706259454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305877457271126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d929c38804944b1888d6246582232f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114531426456411064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,12 +166,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3739967b04cac465bafd44dd1d03be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  jumpHeight: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 264
-  lerpAmount: 0.66
+    m_Bits: 256
+  jumpHeight: 7.5
+  speed: 7.5
+  debug: 1
+  maxDistanceFromWall: 0.2
+  walljumpModifier: 1
 --- !u!212 &212484073164770288
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,5 +214,3 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0

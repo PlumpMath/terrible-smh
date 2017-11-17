@@ -8,6 +8,11 @@ public class GlobalManagerScript : MonoBehaviour {
 	public static List<string> deathReasons;
 
 	void Awake(){
+		if (GameObject.FindGameObjectsWithTag("Manager").Length > 1){
+			Destroy(this);
+			return;
+		}
+
 		DontDestroyOnLoad(transform.gameObject);
 		deathReasons = new List<string>();
 	}
