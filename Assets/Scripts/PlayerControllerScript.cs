@@ -9,12 +9,8 @@ public class PlayerControllerScript : MonoBehaviour {
     public float jumpHeight;
     public float speed;
     public bool debug;
-	public float maxDistanceFromWall;
-	public float walljumpModifier;
 
 	bool isJumping;
-	bool hasWallJumped;
-	float jumpingXMod;
 	float normalizedHorizontalSpeed;
 
 	bool isRecording;
@@ -134,26 +130,13 @@ public class PlayerControllerScript : MonoBehaviour {
 			// rb2d.velocity = Vector2.zero;
 		}else if (isGrounded()){
 			isJumping = false;
-			hasWallJumped = false;
 			// rb2d.velocity = Vector2.zero;
 		}
 
-		// If we're already jumping
-		if (isJumping)
-		{
-			// Check if we can wall jump & if we want to
-			if (Input.GetKey(KeyCode.UpArrow) && !hasWallJumped && canWallJump())
-			{
-				hasWallJumped = true;
-				rb2d.AddForce(new Vector2(jumpingXMod, jumpHeight), ForceMode2D.Impulse);
-				jumpingXMod = 0f;
-				return;
-			}
-		// Otherwise, check if we want to
-		}else if (Input.GetKey(KeyCode.UpArrow) && canJump()){
-			// And do that if we are.
-			rb2d.AddForce(new Vector2(jumpingXMod, jumpHeight), ForceMode2D.Impulse);
-			jumpingXMod = 0f;
+		// Check if we want to jump & can
+		if (Input.GetKey(KeyCode.UpArrow) && !isJumping && canJump()){
+			// Add a force and record that we're jumping
+			rb2d.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
 			isJumping = true;
 			return;
 		}
@@ -161,27 +144,6 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	bool canJump(){
 		return isGrounded();
-	}
-
-	bool canWallJump(){
-			// Check if we're touching any walls
-			// Get the origins for the rays
-			Vector2 leftOrigin = rb2d.position + botLeft;
-			Vector2 rightOrigin = rb2d.position + botRight;
-
-			// Cast them
-			RaycastHit2D leftRay = Physics2D.Raycast(leftOrigin, Vector2.left, maxDistanceFromWall, layerMask);
-			RaycastHit2D rightRay = Physics2D.Raycast(rightOrigin, Vector2.right, maxDistanceFromWall, layerMask);
-
-			DebugRay(rightOrigin, Vector2.right);
-			DebugRay(leftOrigin, Vector2.left);
-			
-			// If so, we can jump but we need to make sure the X gets modified
-			if (leftRay || rightRay){
-				jumpingXMod = walljumpModifier * (leftRay ? 1 : -1);
-				return true;
-			}else
-				return false;
 	}
 
 	internal void startRecording(ref List<Vector3> movements)
