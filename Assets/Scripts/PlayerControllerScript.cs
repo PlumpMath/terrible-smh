@@ -126,11 +126,9 @@ public class PlayerControllerScript : MonoBehaviour {
 	void PerformJumps()
 	{
 		// Reset the velocity if we're not jumping or have just landed.
-		if (!isJumping){
-			// rb2d.velocity = Vector2.zero;
-		}else if (isGrounded()){
+		if (isJumping && isGrounded()){
 			isJumping = false;
-			// rb2d.velocity = Vector2.zero;
+			rb2d.velocity = Vector2.zero;
 		}
 
 		// Check if we want to jump & can
