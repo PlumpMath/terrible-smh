@@ -16,6 +16,7 @@ public class DoorScript : MonoBehaviour {
 
 	void Update()
 	{
+		// TODO: Ideally, the collider would move instantly and only the appearance would be a smooth transition
 		if (targetPosition != Vector3.zero) {
 			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, time);
 

@@ -30,7 +30,6 @@ public class SmoothCameraFollow : MonoBehaviour {
 		// Set the right Z distance
 		undampedLoc.z = distanceOnZ;
 		// Move towards the ideal point
-		// TODO: Ease
 		transform.position = Vector3.SmoothDamp(transform.position, undampedLoc, ref velocity, smoothTime);
 	}
 }

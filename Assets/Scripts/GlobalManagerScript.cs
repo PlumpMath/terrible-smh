@@ -7,6 +7,8 @@ public class GlobalManagerScript : MonoBehaviour {
 
 	public static List<string> deathReasons;
 
+	public GameObject repeaterTutorial;
+
 	void Awake(){
 		if (GameObject.FindGameObjectsWithTag("Manager").Length > 1){
 			Destroy(gameObject);
@@ -32,6 +34,6 @@ public class GlobalManagerScript : MonoBehaviour {
 	}
 
 	public void ShowRepeaterTutorial(){
-		return; //TODO
+		Instantiate(repeaterTutorial, Vector3.zero, Quaternion.identity);
 	}
 }

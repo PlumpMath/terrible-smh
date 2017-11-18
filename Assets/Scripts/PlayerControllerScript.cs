@@ -13,23 +13,12 @@ public class PlayerControllerScript : MonoBehaviour {
 	public float walljumpModifier;
 
 	bool isJumping;
+	bool hasWallJumped;
 	float jumpingXMod;
 	float normalizedHorizontalSpeed;
 
 	bool isRecording;
 	List<Vector3> movements;
-
-    internal void startRecording(ref List<Vector3> movements)
-    {
-        isRecording = true;
-		movements.Clear();
-		this.movements = movements;
-    }
-
-    internal void stopRecording()
-    {
-        isRecording = false;
-    }
 
     Rigidbody2D rb2d;
 	Vector2 topLeft;
@@ -60,19 +49,8 @@ public class PlayerControllerScript : MonoBehaviour {
 			normalizedHorizontalSpeed = 0;
 		}
 
-		if (!isJumping){
-			rb2d.velocity = Vector2.zero;	
-		}else if (isGrounded()){
-			isJumping = false;
-			rb2d.velocity = Vector2.zero;
-		}
-
-		if (Input.GetKey(KeyCode.UpArrow) && canJump()){
-			rb2d.AddForce(new Vector2(jumpingXMod, jumpHeight), ForceMode2D.Impulse);
-			// transform.position += new Vector3(jumpingXMod, jumpHeight);
-			jumpingXMod = 0f;
-			isJumping = true;
-		}
+		// Deal with jumping logic
+		PerformJumps();
 
 		// Get the distance we want to move on the X
 		float idealDistance = speed * Time.deltaTime * normalizedHorizontalSpeed;
@@ -149,8 +127,43 @@ public class PlayerControllerScript : MonoBehaviour {
 		return leftRay || rightRay;
 	}
 
+	void PerformJumps()
+	{
+		// Reset the velocity if we're not jumping or have just landed.
+		if (!isJumping){
+			// rb2d.velocity = Vector2.zero;
+		}else if (isGrounded()){
+			isJumping = false;
+			hasWallJumped = false;
+			// rb2d.velocity = Vector2.zero;
+		}
+
+		// If we're already jumping
+		if (isJumping)
+		{
+			// Check if we can wall jump & if we want to
+			if (Input.GetKey(KeyCode.UpArrow) && !hasWallJumped && canWallJump())
+			{
+				hasWallJumped = true;
+				rb2d.AddForce(new Vector2(jumpingXMod, jumpHeight), ForceMode2D.Impulse);
+				jumpingXMod = 0f;
+				return;
+			}
+		// Otherwise, check if we want to
+		}else if (Input.GetKey(KeyCode.UpArrow) && canJump()){
+			// And do that if we are.
+			rb2d.AddForce(new Vector2(jumpingXMod, jumpHeight), ForceMode2D.Impulse);
+			jumpingXMod = 0f;
+			isJumping = true;
+			return;
+		}
+	}
+
 	bool canJump(){
-		if (!isGrounded()){
+		return isGrounded();
+	}
+
+	bool canWallJump(){
 			// Check if we're touching any walls
 			// Get the origins for the rays
 			Vector2 leftOrigin = rb2d.position + botLeft;
@@ -169,7 +182,18 @@ public class PlayerControllerScript : MonoBehaviour {
 				return true;
 			}else
 				return false;
-		}else
-			return true;
 	}
+
+	internal void startRecording(ref List<Vector3> movements)
+    {
+        isRecording = true;
+		movements.Clear();
+		this.movements = movements;
+    }
+
+    internal void stopRecording()
+    {
+        isRecording = false;
+    }
+
 }

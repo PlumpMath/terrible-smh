@@ -6,36 +6,24 @@ public class SlideWallsWhilePressed : MonoBehaviour {
 
 	public List<Transform> doorsToControl;
 
-	public LayerMask playerLayer;
 
-	ContactFilter2D cf2d;
-
-	Collider2D collider;
-
-	Collider2D[] contacts;
-
-	bool isOpen;
-
-	void Awake()
+	void OnTriggerEnter2D(Collider2D other)
 	{
-		collider = gameObject.GetComponent<Collider2D> ();
-		cf2d = new ContactFilter2D ();
-		cf2d.SetLayerMask (playerLayer);
-	}
-
-	void Update()
-	{
-		
-		if (collider.OverlapCollider (cf2d, ref contacts) > 0) {
+		if (other.tag == "Player")
+		{
 			foreach (Transform t in doorsToControl) {
 				t.GetComponent<DoorScript> ().open ();
 			}
-			isOpen = true;
-		} else if (isOpen) {
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.tag == "Player")
+		{
 			foreach (Transform t in doorsToControl) {
 				t.GetComponent<DoorScript> ().close ();
 			}
-			isOpen = false;
 		}
 	}
 }
