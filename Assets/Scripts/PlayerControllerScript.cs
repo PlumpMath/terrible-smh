@@ -135,8 +135,8 @@ public class PlayerControllerScript : MonoBehaviour {
 
 		// Check if we want to jump & can
 		if (Input.GetKey(KeyCode.UpArrow) && !isJumping && canJump()){
-			// Add a force and record that we're jumping
-			rb2d.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
+			// Add a force
+			rb2d.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse); // tODO: This can be super inconsistent
 			isJumping = true;
 			return;
 		}

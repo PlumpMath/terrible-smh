@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SmoothCameraFollow : MonoBehaviour {
-
+// TODO: Add min/max X/Y
 	public bool moveY;
 
 	public bool moveX;

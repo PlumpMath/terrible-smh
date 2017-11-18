@@ -41,7 +41,7 @@ public class RepeaterScript : MonoBehaviour {
 			Debug.Log("Started playback");
 			actor = Instantiate(actorPrefab, movements[0], Quaternion.identity);
 
-			actor.GetComponent<RepeaterActor>().movements = movements;
+			actor.GetComponent<RepeaterActor>().movements = new List<Vector3>(movements);
 		}
 	}
 }

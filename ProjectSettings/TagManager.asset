@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Next Level Particles
+    uniqueID: 2259571743
+    locked: 0
