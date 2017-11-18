@@ -14,9 +14,6 @@ public class RepeaterScript : MonoBehaviour {
 
 	GameObject actor;
 
-	/// <summary>
-	/// Awake is called when the script instance is being loaded.
-	/// </summary>
 	void Awake()
 	{
 		pcs = gameObject.GetComponent<PlayerControllerScript>();
