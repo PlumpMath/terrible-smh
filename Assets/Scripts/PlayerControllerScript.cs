@@ -9,6 +9,9 @@ public class PlayerControllerScript : MonoBehaviour {
     public float jumpHeight;
     public float speed;
     public bool debug;
+	public int horizontalRays;
+	public int verticalRays;
+
 
 	bool isJumping;
 	float normalizedHorizontalSpeed;
@@ -17,20 +20,29 @@ public class PlayerControllerScript : MonoBehaviour {
 	List<Vector3> movements;
 
     Rigidbody2D rb2d;
-	Vector2 topLeft;
-	Vector2 topRight;
-	Vector2 botLeft;
-	Vector2 botRight;
+	List<float> horizontalRaycastYs;
+	List<float> verticalRaycastXs;
 
     void Awake()
 	{
 		Collider2D c2d = gameObject.GetComponent<Collider2D>();
 		rb2d = gameObject.GetComponent<Rigidbody2D>();
 
-		topLeft = new Vector2(-c2d.bounds.extents.x, c2d.bounds.extents.y);
-		topRight = new Vector2(c2d.bounds.extents.x, c2d.bounds.extents.y);
-		botLeft = new Vector2(-c2d.bounds.extents.x, -c2d.bounds.extents.y);
-		botRight = new Vector2(c2d.bounds.extents.x, -c2d.bounds.extents.y);
+		float totalHeight = 2 * c2d.bounds.extents.y;
+
+		float distanceBetweenHorizontalRays = totalHeight / horizontalRays;
+		for (var i = 0; i < horizontalRays; i++)
+		{
+			horizontalRaycastYs.Add(c2d.bounds.max.y - (distanceBetweenHorizontalRays * i));
+		}
+
+		float totalWidth = 2 * c2d.bounds.extents.x;
+
+		float distanceBetweenVerticalRays = totalWidth / verticalRays;
+		for (var i = 0; i < verticalRays; i ++)
+		{
+			verticalRaycastXs.Add(c2d.bounds.min.x + (distanceBetweenVerticalRays * i));
+		}
 	}
 
 	void Update()
@@ -105,6 +117,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	bool isGrounded(){
+		// TODO: Cast in more places than top/bottom
 		// Get the origins for the rays
 		Vector2 leftOrigin = rb2d.position + botLeft;
 		Vector2 rightOrigin = rb2d.position + botRight;
@@ -134,7 +147,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		// Check if we want to jump & can
 		if (Input.GetKey(KeyCode.UpArrow) && !isJumping && canJump()){
 			// Add a force
-			rb2d.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse); // tODO: This can be super inconsistent
+			rb2d.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
 			isJumping = true;
 			return;
 		}
