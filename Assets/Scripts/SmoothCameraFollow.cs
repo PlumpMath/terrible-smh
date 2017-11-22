@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SmoothCameraFollow : MonoBehaviour {
-// TODO: Add min/max X/Y
+	
 	public bool moveY;
 
 	public bool moveX;
+
+	public Vector3 minPoint;
+	
+	public Vector3 maxPoint;
 
 	public Transform objectToFollow;
 
@@ -23,10 +27,11 @@ public class SmoothCameraFollow : MonoBehaviour {
 		Vector3 undampedLoc = transform.position;
 		// If we're meant to move on the Y make sure we do
 		if (moveY)
-			undampedLoc.y = objectLoc.y;
+			undampedLoc.y = Mathf.Max(Mathf.Min(objectLoc.y, maxPoint.y), minPoint.y);
 		// If we're meant to move on the X make sure we do
 		if (moveX)
-			undampedLoc.x = objectLoc.x;
+			undampedLoc.x = Mathf.Max(Mathf.Min(objectLoc.x, maxPoint.x), minPoint.x);
+
 		// Set the right Z distance
 		undampedLoc.z = distanceOnZ;
 		// Move towards the ideal point
