@@ -8,8 +8,12 @@ public class GlobalManagerScript : MonoBehaviour {
 	public static List<string> deathReasons;
 
 	public GameObject repeaterTutorial;
+    public GameObject recordingOverlayPrefab;
 
-	void Awake(){
+	GameObject recordingOverlay;
+	AudioSource beepSource;
+
+    void Awake(){
 		if (GameObject.FindGameObjectsWithTag("Manager").Length > 1){
 			Destroy(gameObject);
 			return;
@@ -17,6 +21,7 @@ public class GlobalManagerScript : MonoBehaviour {
 
 		DontDestroyOnLoad(transform.gameObject);
 		deathReasons = new List<string>();
+		beepSource = gameObject.GetComponent<AudioSource>();
 	}
 
 	/**
@@ -36,4 +41,21 @@ public class GlobalManagerScript : MonoBehaviour {
 	public void ShowRepeaterTutorial(){
 		Instantiate(repeaterTutorial, Vector3.zero, Quaternion.identity);
 	}
+
+	public void showRecordingOverlay()
+	{
+		recordingOverlay = Instantiate(recordingOverlayPrefab, Vector3.zero, Quaternion.identity);
+	}
+
+	public void hideRecordingOverlay()
+	{
+		if (recordingOverlay)
+			Destroy(recordingOverlay);
+	}
+
+	public void beep()
+	{
+		beepSource.Play();
+	}
+
 }

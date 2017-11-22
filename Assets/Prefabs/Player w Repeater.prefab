@@ -173,6 +173,9 @@ MonoBehaviour:
   jumpHeight: 7.5
   speed: 7.5
   debug: 0
+  horizontalRays: 12
+  verticalRays: 3
+  groundedRayDistance: 0.1
 --- !u!114 &114932056315780226
 MonoBehaviour:
   m_ObjectHideFlags: 1

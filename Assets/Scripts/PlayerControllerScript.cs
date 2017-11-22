@@ -11,7 +11,7 @@ public class PlayerControllerScript : MonoBehaviour {
     public bool debug;
 	public int horizontalRays;
 	public int verticalRays;
-
+    public float groundedRayDistance;
 
 	bool isJumping;
 	float normalizedHorizontalSpeed;
@@ -20,8 +20,11 @@ public class PlayerControllerScript : MonoBehaviour {
 	List<Vector3> movements;
 
     Rigidbody2D rb2d;
-	List<float> horizontalRaycastYs;
-	List<float> verticalRaycastXs;
+	List<float> horizontalRaycastYs = new List<float>();
+	List<float> verticalRaycastXs = new List<float>();
+    private float horizontalRaycastX;
+    private float verticalRaycastY;
+
 
     void Awake()
 	{
@@ -33,16 +36,18 @@ public class PlayerControllerScript : MonoBehaviour {
 		float distanceBetweenHorizontalRays = totalHeight / horizontalRays;
 		for (var i = 0; i < horizontalRays; i++)
 		{
-			horizontalRaycastYs.Add(c2d.bounds.max.y - (distanceBetweenHorizontalRays * i));
+			horizontalRaycastYs.Add(c2d.bounds.extents.y - (distanceBetweenHorizontalRays * i));
 		}
+		horizontalRaycastX = c2d.bounds.extents.x;
 
 		float totalWidth = 2 * c2d.bounds.extents.x;
 
 		float distanceBetweenVerticalRays = totalWidth / verticalRays;
 		for (var i = 0; i < verticalRays; i ++)
 		{
-			verticalRaycastXs.Add(c2d.bounds.min.x + (distanceBetweenVerticalRays * i));
+			verticalRaycastXs.Add(c2d.bounds.extents.x - (distanceBetweenVerticalRays * i));
 		}
+		verticalRaycastY = -c2d.bounds.extents.y;
 	}
 
 	void Update()
@@ -77,37 +82,25 @@ public class PlayerControllerScript : MonoBehaviour {
 			movements.Add(transform.position);
 	}
 
-	float getMaxMovementOnX(bool goingRight, float maxDistance){
+	float getMaxMovementOnX(bool isGoingRight, float maxDistance){
 		// Default to however long
 		float maxMovement = Mathf.Abs(maxDistance);
 
-		// Get the origins for the rays
-		Vector2 topOrigin = rb2d.position + (goingRight ? topRight : topLeft);
-		Vector2 botOrigin = rb2d.position + (goingRight ? botRight : botLeft);
-
 		// Get the directions for the rays
-		Vector2 rayDir = goingRight ? Vector2.right : Vector2.left;
+		Vector2 rayDir = isGoingRight ? Vector2.right : Vector2.left;
 
-		// Cast them
-		RaycastHit2D topRay = Physics2D.Raycast(topOrigin, rayDir, maxMovement, layerMask);
-		RaycastHit2D botRay = Physics2D.Raycast(botOrigin, rayDir, maxMovement, layerMask);
-
-		DebugRay(topOrigin, rayDir);
-		DebugRay(botOrigin, rayDir);
-		
-		// Check if the distance is less than the already established max movement
-		if (topRay && Mathf.Abs(topRay.distance) < maxMovement)
-			// If so, set the distance to be the max movement
-			maxMovement = topRay.distance;
-		// ""
-		if (botRay && Mathf.Abs(botRay.distance) < maxMovement)
-			// ""
-			maxMovement = botRay.distance;
-
-
+		// Cast one from each origin
+		RaycastHit2D ray;
+		foreach (float y in horizontalRaycastYs)
+		{
+			Vector2 origin = new Vector2(isGoingRight ? horizontalRaycastX : -horizontalRaycastX, y);
+			ray = Physics2D.Raycast(rb2d.position + origin, rayDir, maxMovement, layerMask);
+			DebugRay(rb2d.position + origin, rayDir);
+			if (ray && Mathf.Abs(ray.distance) < maxMovement)		
+				maxMovement = ray.distance;
+		}
 		// Return the max movement
 		return maxMovement;
-		
 	}
 
 	void DebugRay(Vector2 origin, Vector2 dir){
@@ -117,23 +110,21 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	bool isGrounded(){
-		// TODO: Cast in more places than top/bottom
-		// Get the origins for the rays
-		Vector2 leftOrigin = rb2d.position + botLeft;
-		Vector2 rightOrigin = rb2d.position + botRight;
 
 		// Get the directions for the rays
 		Vector2 rayDir = Vector2.down;
 
-		// Cast them
-		RaycastHit2D leftRay = Physics2D.Raycast(leftOrigin, rayDir, 0.1f, layerMask);
-		RaycastHit2D rightRay = Physics2D.Raycast(rightOrigin, rayDir, 0.1f, layerMask);
-
-		DebugRay(rightOrigin, rayDir);
-		DebugRay(leftOrigin, rayDir);
-		
-		// If either of them hit return true, otherwise we're in the air
-		return leftRay || rightRay;
+		// Cast one from each origin
+		RaycastHit2D ray;
+		foreach (float x in verticalRaycastXs)
+		{
+			Vector2 origin = new Vector2(x, verticalRaycastY);
+			ray = Physics2D.Raycast(rb2d.position + origin, rayDir, groundedRayDistance, layerMask);
+			DebugRay(rb2d.position + origin, rayDir);
+			if (ray)		
+				return true;
+		}
+		return false;
 	}
 
 	void PerformJumps()
