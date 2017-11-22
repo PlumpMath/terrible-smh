@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 223259189856789726}
   - component: {fileID: 114335058620367184}
   - component: {fileID: 114764667345656094}
+  - component: {fileID: 114227557765504320}
   m_Layer: 5
   m_Name: Recording Overlay
   m_TagString: Untagged
@@ -96,6 +97,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: REC
+--- !u!114 &114227557765504320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1752951668882670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58129bc5ab34447eb19a005d0ab94f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 114148252579386854}
+  timeBetweenFlashes: 0.75
 --- !u!114 &114335058620367184
 MonoBehaviour:
   m_ObjectHideFlags: 1
