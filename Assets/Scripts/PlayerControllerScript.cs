@@ -15,6 +15,7 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	bool isJumping;
 	float normalizedHorizontalSpeed;
+	float lastNormalizedHorizontalSpeed;
 
 	bool isRecording;
 	List<Vector3> movements;
@@ -65,21 +66,33 @@ public class PlayerControllerScript : MonoBehaviour {
 		// Deal with jumping logic
 		PerformJumps();
 
-		// Get the distance we want to move on the X
-		float idealDistance = speed * Time.deltaTime * normalizedHorizontalSpeed;
+		if (normalizedHorizontalSpeed != 0)
+		{
+			// Get the distance we want to move on the X
+			float idealDistance = speed * Time.deltaTime * normalizedHorizontalSpeed;
 
-		// Check how far we can move on the X
-		float actualDistance = getMaxMovementOnX(idealDistance > 0, idealDistance);
+			// Check how far we can move on the X
+			float actualDistance = getMaxMovementOnX(idealDistance > 0, idealDistance);
 
-		// Compensate for direction
-		actualDistance = normalizedHorizontalSpeed > 0 ? actualDistance : -actualDistance;
+			// Compensate for direction
+			actualDistance = normalizedHorizontalSpeed > 0 ? actualDistance : -actualDistance;
+			
+			// Flip the sprite appropriately
+			if (normalizedHorizontalSpeed != lastNormalizedHorizontalSpeed)
+			{
+				Vector2 newScale = transform.localScale;
+				newScale.x = normalizedHorizontalSpeed < 0 ? -newScale.x : Mathf.Abs(newScale.x);
+				transform.localScale = newScale;
+			}
+			lastNormalizedHorizontalSpeed = normalizedHorizontalSpeed;
+
+			// Move
+			transform.position += new Vector3(actualDistance, 0f);
+		}
 		
-		// Move
-		transform.position += new Vector3(actualDistance, 0f);
-
 		// If we're recording, record our position
 		if (isRecording)
-			movements.Add(transform.position);
+			movements.Add(transform.position); // TODO: Store time and stuff
 	}
 
 	float getMaxMovementOnX(bool isGoingRight, float maxDistance){
