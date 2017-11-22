@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9d2d799602b254e95b02a95c13c8c6c8
-timeCreated: 1511019961
+timeCreated: 1511376376
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -10,6 +10,7 @@ TextureImporter:
     21300006: scifi_platformTiles_32x32_0
     21300008: Background (Clean)
     21300010: Background bottom tile
+    21300012: Dark Tile
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -187,6 +188,19 @@ TextureImporter:
         x: 0
         y: 320
         width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Dark Tile
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 97
         height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
