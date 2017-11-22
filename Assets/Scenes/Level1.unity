@@ -159,31 +159,13 @@ GameObject:
   m_Component:
   - component: {fileID: 442372246}
   - component: {fileID: 442372245}
-  - component: {fileID: 442372244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Edges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!68 &442372244
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 442372243}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 1.9734106, y: 6.3981395}
-  - {x: 26.626543, y: 6.3981605}
 --- !u!68 &442372245
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -199,8 +181,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 3.007164, y: 6.5512915}
-  - {x: 3.045968, y: -3.7922235}
+  - {x: 25, y: -3}
+  - {x: 25, y: 7}
+  - {x: 4, y: 7}
+  - {x: 4, y: -3}
 --- !u!4 &442372246
 Transform:
   m_ObjectHideFlags: 0
@@ -842,7 +826,7 @@ Camera:
   far clip plane: 1000
   field of view: 1
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -865,7 +849,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2091979442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0.43, z: -10}
   m_LocalScale: {x: 2.287499, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

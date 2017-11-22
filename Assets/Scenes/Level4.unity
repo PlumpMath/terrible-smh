@@ -408,7 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 220372405}
   - component: {fileID: 220372404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Edges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,6 +818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveY: 0
   moveX: 1
+  minPoint: {x: 3.77, y: 3.85, z: 0}
+  maxPoint: {x: 10, y: 3.85, z: 0}
   objectToFollow: {fileID: 1788874852}
   distanceOnZ: 1
   smoothTime: 0.3

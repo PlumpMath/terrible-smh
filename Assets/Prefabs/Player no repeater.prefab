@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1270451921240612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.589189, y: 0.598, z: 0}
+  m_LocalPosition: {x: 0, y: 1.14, z: 0}
   m_LocalScale: {x: 0.37, y: 0.37, z: 2}
   m_Children:
   - {fileID: 4667834341178042}
@@ -162,6 +162,9 @@ MonoBehaviour:
   jumpHeight: 7.5
   speed: 7.5
   debug: 0
+  horizontalRays: 15
+  verticalRays: 3
+  groundedRayDistance: 0.1
 --- !u!114 &114357286027602474
 MonoBehaviour:
   m_ObjectHideFlags: 1
